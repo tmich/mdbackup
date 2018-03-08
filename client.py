@@ -1,17 +1,23 @@
 import rpyc, datetime, os, sys, uuid
 import database as db
 
+HOST = "80.211.227.37"
+PORT = 18861
+
 class RpcClient:
 
 	def __init__(self):
-		self.server = rpyc.connect("80.211.227.37", 18861)
-		
+		self.server = None
+		self.async_fatt = None
 		# client = db.get_rpc_client()
 
 		# if client == None:
 			# registra_client()
 		# else:
 			# uuid = client.codice
+			
+	def connect(self):
+		self.server = rpyc.connect(HOST, PORT)
 			
 	def login(self, username, password):
 		#uuid = server.root.registra_client('aldo', 'password')
@@ -26,7 +32,15 @@ class RpcClient:
 			print('Registrato nuovo rpc client con codice %s' % uuid)
 		else:
 			raise exception('non valido')
+			
+	def aggiorna_async(self):
+		print 'aggiorna_async'
+		self.async_fatt = rpyc.async(self.server.root.get_fatture)
+		self.async_result = self.async_fatt()
+		return self.async_result
 	
+	#def aggiornamento_callback(self):	
+		
 	
 		
 	#session.commit()
