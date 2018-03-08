@@ -1,6 +1,6 @@
-from sqlalchemy import create_engine, Table, Column, String, select
+from sqlalchemy import create_engine, Table, Column, String, select, MetaData
 # from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import MetaData
+# from sqlalchemy.orm import MetaData
 # from sqlalchemy.sql import func
 
 engine = create_engine("sqlite:///client.db", echo=True)
