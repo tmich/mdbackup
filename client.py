@@ -33,6 +33,6 @@ class RpcClient:
 
     def aggiorna_async(self):
         print 'aggiorna_async'
-        self.async_fatt = rpyc.async(self.server.root.get_fatture)
+        self.async_fatt = rpyc.async(self.server.root.clone)
         self.async_result = self.async_fatt()
         return self.async_result
