@@ -5,7 +5,7 @@ import ttk
 from client import RpcClient
 import socket
 import threading
-
+import database as db
 rpc = RpcClient()
 
 
@@ -112,6 +112,27 @@ class Window(ttk.Frame):
     def is_ready(self):
         self.n_items.set(len(self.items))
         print 'PRONTO. Ricevuti %d oggetti' % self.n_items.get()
+
+        for i in self.items:
+            if i.tipo_oggetto == 'F':
+                res = db.insert_fattura(i.id_cronologia,
+                                        num=i.dati['num'],
+                                        ragsoc=i.dati['ragsoc']
+                                        )
+                print res
+
+        # for i in self.items[0:9]:
+            # print i.id_cronologia
+            # print i.id_oggetto
+            # print i.tipo_modifica
+            # print i.dati['ragsoc']
+            # if i.tipo_oggetto == 'F':
+            # print i.dati['num']
+
+        # item = CronologiaItem(id_cronologia=last_cron_id, id_oggetto=f.id,
+        # tipo_oggetto='F', tipo_modifica='I',
+        # dati=ft)
+
         self.b1.configure(state="normal")
         self.b1.configure(text="Aggiorna")
 
